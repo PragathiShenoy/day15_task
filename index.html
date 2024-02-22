@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+    </style>
+</head>
+<body>
+    <h1 id="title">Form Validation</h1>
+    <p id="description">Please fill out the form below:</p>
+    
+    <form id="form" onsubmit="formSubmit(event)">
+        <div class="form-group">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" placeholder="Enter your first name" required>
+            <span id="fnameError"></span>
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" placeholder="Enter your last name" required>
+            <span id="lnameError"></span>
+        </div>
+        <br><br>
+
+        <div class="form-group">
+        <label for="address">Address:</label>
+        <textarea id="address" placeholder="Enter your address" required></textarea>
+        <span id="addressError"></span>
+        </div>
+        <br><br>
+
+        <div class="form-group">
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" placeholder="Enter your pincode" required>
+        <span id="pincodeError"></span>
+        </div>
+        <br><br>
+
+        <label>Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Female</label>
+        <input type="radio" id="other" name="gender" value="other" required>
+        <label for="other">Other</label>
+        <span id="genderError"></span>
+        <br><br>
+
+        <label for="food">Choice of Food (Select at least 2):</label><br>
+        <input type="checkbox" id="food1" name="food" value="NeerDosa">
+        <label for="food1"> NeerDosa</label><br>
+        <input type="checkbox" id="food2" name="food" value="Idli">
+        <label for="food2"> Idli</label><br>
+        <input type="checkbox" id="food3" name="food" value="Poori">
+        <label for="food3"> Poori</label><br>
+        <input type="checkbox" id="food4" name="food" value="Pundi">
+        <label for="food4"> Pundi</label><br>
+        <input type="checkbox" id="food5" name="food" value="Maggie">
+        <label for="food5"> Maggie</label><br>
+        <span id="foodError"></span>
+        <br><br>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" placeholder="Enter your state" required>
+        <span id="stateError"></span>
+        <br><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" placeholder="Enter your country" required>
+        <span id="countryError"></span>
+        <br><br>
+
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <table class="table mt-5">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Pincode</th>
+            <th>Gender</th>
+            <th>Choice of Food</th>
+            <th>State</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Table data will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <script>
+        function formSubmit(event) {
+    event.preventDefault();
+
+    // Getting form values
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const address = document.getElementById('address').value;
+    const pincode = document.getElementById('pincode').value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const foods = Array.from(document.querySelectorAll('input[name="food"]:checked')).map(food => food.value);
+    const state = document.getElementById('state').value;
+    const country = document.getElementById('country').value;
+
+    // Validating food selection
+    if (foods.length < 2) {
+        document.getElementById('foodError').innerText = "Must choose at least 2!!!";
+        return; // Stop further execution if validation fails
+    } else {
+        document.getElementById('foodError').innerText = "";
+    }
+
+    // Getting reference to table body
+    const tableBody = document.getElementById('tableBody');
+
+    // Creating new row
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${firstName}</td>
+        <td>${lastName}</td>
+        <td>${address}</td>
+        <td>${pincode}</td>
+        <td>${gender}</td>
+        <td>${foods.join(', ')}</td>
+        <td>${state}</td>
+        <td>${country}</td>
+    `;
+
+    // Append row to table
+    tableBody.appendChild(newRow);
+
+    // Clear form fields
+    document.getElementById('first-name').value = '';
+    document.getElementById('last-name').value = '';
+    document.getElementById('address').value = '';
+    document.getElementById('pincode').value = '';
+    document.querySelector('input[name="gender"]:checked').checked = false;
+    document.querySelectorAll('input[name="food"]:checked').forEach(food => food.checked = false);
+    document.getElementById('state').value = '';
+    document.getElementById('country').value = '';
+}
+    </script>
+
+   
+   <script src="https://app.zenclass.in/sheets/v1/js/zen/suite/bundle.js"></script>
+
+</body>
+</html>
