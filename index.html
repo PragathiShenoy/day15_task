@@ -3,31 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
-    <style>
-        table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #ddd;
-}
-    </style>
 </head>
 <body>
     <h1 id="title">Form Validation</h1>
@@ -113,65 +90,11 @@ tr:hover {
           </tr>
         </thead>
         <tbody id="tableBody">
-          <!-- Table data will be dynamically added here -->
         </tbody>
     </table>
 
-    <script>
-        function formSubmit(event) {
-    event.preventDefault();
-
-    // Getting form values
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
-    const address = document.getElementById('address').value;
-    const pincode = document.getElementById('pincode').value;
-    const gender = document.querySelector('input[name="gender"]:checked').value;
-    const foods = Array.from(document.querySelectorAll('input[name="food"]:checked')).map(food => food.value);
-    const state = document.getElementById('state').value;
-    const country = document.getElementById('country').value;
-
-    // Validating food selection
-    if (foods.length < 2) {
-        document.getElementById('foodError').innerText = "Must choose at least 2!!!";
-        return; // Stop further execution if validation fails
-    } else {
-        document.getElementById('foodError').innerText = "";
-    }
-
-    // Getting reference to table body
-    const tableBody = document.getElementById('tableBody');
-
-    // Creating new row
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td>${firstName}</td>
-        <td>${lastName}</td>
-        <td>${address}</td>
-        <td>${pincode}</td>
-        <td>${gender}</td>
-        <td>${foods.join(', ')}</td>
-        <td>${state}</td>
-        <td>${country}</td>
-    `;
-
-    // Append row to table
-    tableBody.appendChild(newRow);
-
-    // Clear form fields
-    document.getElementById('first-name').value = '';
-    document.getElementById('last-name').value = '';
-    document.getElementById('address').value = '';
-    document.getElementById('pincode').value = '';
-    document.querySelector('input[name="gender"]:checked').checked = false;
-    document.querySelectorAll('input[name="food"]:checked').forEach(food => food.checked = false);
-    document.getElementById('state').value = '';
-    document.getElementById('country').value = '';
-}
-    </script>
-
-   
    <script src="https://app.zenclass.in/sheets/v1/js/zen/suite/bundle.js"></script>
-
+   <script src="./script.js"></script>
+   
 </body>
 </html>
